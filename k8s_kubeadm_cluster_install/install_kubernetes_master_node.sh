@@ -24,7 +24,7 @@ docker -version
 docker ps 
 
 #### now you can start installing kubernetes #####
-### Requirement -> 2G memory, atleast 2 CPUs #####
+### Requirement -> 2G memory, atleast 2 CPUs -> Linux: ubuntu: 20.4.1 LTS #####
 
 echo "installing kubernetes_Kubeadm_cluster"
 apt-get update
