@@ -53,14 +53,3 @@ kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documen
 
 kubectl get cluster-info
 kubectl get nodes
-
-
-
-
-
-
-
-
-
-
-
