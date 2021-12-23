@@ -14,10 +14,8 @@ add-apt-repository \
    "deb https://download.docker.com/linux/$(. /etc/os-release; echo "$ID") \
    $(lsb_release -cs) \
    stable"
-
 apt-get update
 apt-get install docker-ce docker-ce-cli containerd.io -y
-
 sleep 3
 
 docker -version
