@@ -1,25 +1,25 @@
 ##################################################################################
-#####################STAGING_ENVIRONMENT_SELENIUM_DEPLOYMENT#######################
+#####################STAGING_ENVIRONMENT_DEPLOYMENT#######################
 ###################################################################################
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: selenium-hub
+  name: selenium
   labels:
-    app: selenium-hub
+    app: selenium
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: selenium-hub
+      app: selenium
   template:
     metadata:
       labels:
-        app: selenium-hub
+        app: selenium
     spec:
       containers:
-      - name: selenium-hub
-        image: selenium/hub:4.0
+      - name: selenium
+        image: selenium/:4.0
         ports:
           - containerPort: 4444
           - containerPort: 4443
@@ -30,13 +30,13 @@ spec:
             cpu: ".5"
         livenessProbe:
           httpGet:
-            path: /wd/hub/status
-            port: 4444
+            path: /wd/status
+            port: 4404
           initialDelaySeconds: 30
           timeoutSeconds: 5
         readinessProbe:
           httpGet:
-            path: /wd/hub/status
+            path: /wd/status
             port: 4444
           initialDelaySeconds: 30
           timeoutSeconds: 5
