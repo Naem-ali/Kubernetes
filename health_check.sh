@@ -1,5 +1,5 @@
 ###########################################################################################
-#                                  cluster health ceck 
+#                                  CLUSTER_HEALTH_CHECK
 ###########################################################################################
 
 #!/bin/bash
@@ -13,8 +13,8 @@ PLAIN='\033[0m'
 bold=$(tput bold)
 normal=$(tput sgr0)
 
-deploy="$2"
-namespace="$1"
+deploy="<dep_name>"
+namespace="<ns_name>"
 
 cluster_objects() {
 	echo -e "\e[44mCollecting Information from the Cluster:\e[21m"
@@ -56,7 +56,7 @@ cluster_nodes() {
 	nodes=$(kubectl get nodes | grep -v NAME | wc -l)
 	worker=$(kubectl get nodes | grep -v NAME | grep worker | wc -l)
 	master=$(kubectl get nodes | grep -v NAME | grep master | wc -l)
-	node_status=$(for i in $(kubectl get node | grep -v NAME | awk {'print $2'} | sort -u); do echo "$i";done)
+	node_status=$(for i in $(kubectl get node | grep -v NAME | awk {'print <dep_name>'} | sort -u); do echo "$i";done)
         echo -e "\e[1m\e[39mCluster Node Status:\e[21m"
 	echo -e "${BLUE}"ALL Nodes"                      :${GREEN}$nodes"
 	echo -e "${BLUE}"Worker Nodes"                   :${GREEN}$worker"
@@ -65,10 +65,11 @@ cluster_nodes() {
         echo -e "\e[1m\e[39mNodes Conditions:\e[21m"
 	echo -e "${BLUE}$(kubectl describe node | grep kubelet | awk {'print $15'} | sort -u)"
 	echo -e "\e[1m\e[39mPods Per Node:\e[21m"
-        for node in $(kubectl get node | grep -v NAME | awk {'print $1'})
+        for node in $(kubectl get node | grep -v NAME | awk {'print <ns_name>'})
 	do pod_per_node=$(kubectl get pods --all-namespaces --field-selector spec.nodeName=$node -o wide | wc -l)
 		echo -e "${BLUE}"$node" \t :${GREEN}$pod_per_node"
 	done
+
 	# Nodes Per AZ
 	a=$(kubectl get node -l failure-domain.beta.kubernetes.io/zone=eu-central-1a | grep -v NAME | grep -v master | wc -l)
 	b=$(kubectl get node -l failure-domain.beta.kubernetes.io/zone=eu-central-1b | grep -v NAME | grep -v master | wc -l)
@@ -77,8 +78,9 @@ cluster_nodes() {
 	echo -e "${BLUE}"eu-central-1a" \t :${GREEN}$a"
 	echo -e "${BLUE}"eu-central-1b" \t :${GREEN}$b"
 	echo -e "${BLUE}"eu-central-1c" \t :${GREEN}$c"
+
 	#Node Types
-	types=$(kubectl describe node | grep beta.kubernetes.io/instance-type | cut -d"=" -f2 | sort | uniq -c | awk -F$'\t' {'print $2 $1'})
+	types=$(kubectl describe node | grep beta.kubernetes.io/instance-type | cut -d"=" -f2 | sort | uniq -c | awk -F$'\t' {'print <dep_name> <ns_name>'})
 	echo -e "\e[1m\e[39mCluster Node Types:\e[21m"
 	echo -e "\e[34m$types"
 }
@@ -90,16 +92,16 @@ pod_with_issues() {
 
 top_mem_pods() {
         echo -e "\e[1m\e[39mTop Pods According to Memory Limits:\e[21m"
-	for node in $(kubectl get node | awk {'print $1'} | grep -v NAME)
+	for node in $(kubectl get node | awk {'print <ns_name>'} | grep -v NAME)
 	do kubectl describe node $node | sed -n "/Non-terminated Pods/,/Allocated resources/p"| grep -P -v "terminated|Allocated|Namespace" 
-	done | grep '[0-9]G' | awk -v OFS=' \t' '{if ($9 >= '2Gi') print "\033[0;36m"$2," ", "\033[0;31m"$9}' | sort -k2 -r | column -t
+	done | grep '[0-9]G' | awk -v OFS=' \t' '{if ($9 >= '2Gi') print "\033[0;36m"<dep_name>," ", "\033[0;31m"$9}' | sort -k2 -r | column -t
 
 	}
 top_cpu_pods() {
         echo -e "\e[1m\e[39mTop Pods According to CPU Limits:\e[21m"
-	for node in $(kubectl get node | awk {'print $1'} | grep -v NAME) 
+	for node in $(kubectl get node | awk {'print <ns_name>'} | grep -v NAME) 
 	do kubectl describe node $node | sed -n "/Non-terminated Pods/,/Allocated resources/p" | grep -P -v "terminated|Allocated|Namespace" 
-	done | awk -v OFS=' \t' '{if ($5 ~/^[2-9]+$/) print "\033[0;36m"$2, "\033[0;31m"$5}' | sort -k2 -r | column -t
+	done | awk -v OFS=' \t' '{if ($5 ~/^[2-9]+$/) print "\033[0;36m"<dep_name>, "\033[0;31m"$5}' | sort -k2 -r | column -t
 	}
 
 clear
