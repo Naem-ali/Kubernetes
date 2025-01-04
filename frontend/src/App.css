@@ -1,0 +1,29 @@
+.App {
+  text-align: center;
+}
+
+.App-header {
+  background-color: #282c34;
+  padding: 2rem;
+  color: white;
+}
+
+.dashboard {
+  display: flex;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.dashboard-block {
+  background-color: #f0f0f0;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 80%;
+  max-width: 1200px;
+  margin: 1rem;
+}
+
+.dashboard-block h2 {
+  margin-bottom: 1rem;
+}

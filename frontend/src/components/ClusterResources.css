@@ -1,0 +1,25 @@
+.cluster-resources {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding: 1rem;
+  background-color: #f0f0f0;
+}
+
+.pod-block {
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 1rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: calc(33.333% - 1rem);
+  box-sizing: border-box;
+}
+
+.pod-block h3 {
+  margin-top: 0;
+}
+
+.pod-block p {
+  margin: 0.5rem 0;
+}
