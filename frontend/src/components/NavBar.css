@@ -3,19 +3,33 @@
   justify-content: space-between;
   align-items: center;
   padding: 1rem 2rem;
-  background-color: #333;
+  background: linear-gradient(90deg, #1f1c2c, #928dab);
   color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  animation: slideIn 1s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 
 .navbar-logo {
-  font-size: 1.5rem;
+  font-size: 1.8rem;
   font-weight: bold;
+  font-family: 'Orbitron', sans-serif;
 }
 
 .navbar-links {
   list-style: none;
   display: flex;
-  gap: 1rem;
+  gap: 1.5rem;
 }
 
 .navbar-links li {
@@ -25,9 +39,12 @@
 .navbar-links a {
   color: white;
   text-decoration: none;
-  font-size: 1rem;
+  font-size: 1.2rem;
+  font-family: 'Roboto', sans-serif;
+  transition: color 0.3s ease;
 }
 
 .navbar-links a:hover {
+  color: #ff4081;
   text-decoration: underline;
 }

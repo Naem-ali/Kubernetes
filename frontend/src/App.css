@@ -1,11 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@400;700&display=swap');
+
 .App {
   text-align: center;
+  background: linear-gradient(135deg, #1f1c2c, #928dab);
+  min-height: 100vh;
+  color: white;
+  font-family: 'Roboto', sans-serif;
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color: rgba(40, 44, 52, 0.8);
   padding: 2rem;
   color: white;
+  border-bottom: 2px solid #ff4081;
+  animation: fadeIn 1.5s ease-in;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .dashboard {
@@ -15,15 +32,29 @@
 }
 
 .dashboard-block {
-  background-color: #f0f0f0;
+  background-color: rgba(240, 240, 240, 0.9);
   padding: 2rem;
   border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   width: 80%;
   max-width: 1200px;
   margin: 1rem;
+  animation: zoomIn 1s ease-out;
+}
+
+@keyframes zoomIn {
+  from {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 
 .dashboard-block h2 {
   margin-bottom: 1rem;
+  font-family: 'Orbitron', sans-serif;
+  color: #333;
 }

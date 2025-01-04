@@ -3,7 +3,9 @@
   flex-wrap: wrap;
   gap: 1rem;
   padding: 1rem;
-  background-color: #f0f0f0;
+  background-color: rgba(240, 240, 240, 0.9);
+  border-radius: 8px;
+  animation: fadeIn 1.5s ease-in;
 }
 
 .pod-block {
@@ -14,12 +16,21 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   width: calc(33.333% - 1rem);
   box-sizing: border-box;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.pod-block:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
 .pod-block h3 {
   margin-top: 0;
+  font-family: 'Orbitron', sans-serif;
+  color: #333;
 }
 
 .pod-block p {
   margin: 0.5rem 0;
+  font-family: 'Roboto', sans-serif;
 }
